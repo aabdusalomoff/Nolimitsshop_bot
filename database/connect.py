@@ -13,6 +13,7 @@ def get_connect():
         database = env.str("DATABASE")
     )
 
+
 def create_table():
     sql = """
     CREATE TABLE IF NOT EXISTS users (

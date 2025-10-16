@@ -1,6 +1,8 @@
 from aiogram.types import (KeyboardButton, ReplyKeyboardMarkup,
     InlineKeyboardMarkup, InlineKeyboardButton)
 
+
+
 START_BUTTONS = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="📝 Ro‘yxatdan o‘tish"), KeyboardButton(text="📋 Menu")],
@@ -18,6 +20,7 @@ REGISTER_SUCCESS_BUTTONS = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
+
 
 PHONE_BUTTON = ReplyKeyboardMarkup(
     keyboard=[
