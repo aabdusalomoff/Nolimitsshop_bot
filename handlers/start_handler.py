@@ -6,19 +6,24 @@ import logging
 
 
 from states import Register
-from texts import START_TEXT
+from texts import START_TEXT, WELCOME_BACK_TEXT
 from buttons import (
     START_BUTTONS, PHONE_BUTTON, 
     GENDER_BUTTON, LOCATION_BUTTON, 
     REGISTER_SUCCESS_BUTTONS)
 from filters import is_valid_name, is_valid_phone
 
+from database import is_register_by_id, insert_user
+
 
 start_router = Router()
 
 @start_router.message(CommandStart())
 async def start_handler(message:Message):
-    await message.answer(START_TEXT,reply_markup=START_BUTTONS)
+    if is_register_by_id(message.from_user.id):
+        await message.answer(WELCOME_BACK_TEXT, reply_markup=REGISTER_SUCCESS_BUTTONS)
+    else:
+        await message.answer(START_TEXT,reply_markup=START_BUTTONS)
 
 @start_router.message(F.text == "📝 Ro‘yxatdan o‘tish")
 async def register_handler(message:Message, state: FSMContext):
@@ -109,12 +114,19 @@ async def get_gender(call:CallbackQuery, state:FSMContext):
 
 @start_router.message(Register.address)
 async def get_address(message: Message, state: FSMContext):
-    data = await state.get_data()
 
     if message.location:
         lat = message.location.latitude
         lon = message.location.longitude
+
+        data = await state.get_data()
+
+        fullname = data.get("name")
+        phone = data.get("phone")
+        gender = data.get("gender")
         address = f"{lat}, {lon}"
+
+             
     else:
         address = message.text.strip()
 

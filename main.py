@@ -16,7 +16,7 @@ TOKEN = env.str("TOKEN")
 
 async def main():
     bot = Bot(TOKEN)
-    await dp.include_router(start_router)
+    dp.include_router(start_router)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":

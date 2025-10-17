@@ -15,3 +15,18 @@ Har bir tanlov — bu sizning kayfiyatingiz, sizning uslubingiz, sizning hikoyan
 Boshlash uchun "Register" tugmasini bosing va o‘z tanlovingizni yarating ⚡  
 Sizning yangi uslubingiz shu yerdan boshlanadi!
 """
+
+WELCOME_BACK_TEXT = """
+🎉 Ajoyib! Siz endi bizning hamjamiyat a'zosiga aylandingiz!  
+
+Endi siz uchun barcha imkoniyatlar ochiq:  
+👕 Eng so‘nggi uslubdagi kiyimlar  
+👟 Sifatli poyabzallar  
+🕶️ Qiziqarli aksessuarlar — hammasi bir joyda!  
+
+💪 Siz endi o‘z uslubingizni yaratish yo‘lidagi ilk qadamingizni qo‘ydingiz.  
+Har bir buyurtma, har bir tanlov — sizning o‘ziga xosligingizni aks ettiradi.  
+
+🛍️ Endi “Menu” tugmasini bosib, o‘zingizga yoqqan mahsulotlarni tanlang!  
+Sizga yoqqan uslub — bu sizning eng yaxshi ko‘rinishingiz 💫  
+"""
