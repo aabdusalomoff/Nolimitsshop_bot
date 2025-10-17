@@ -126,7 +126,7 @@ async def get_address(message: Message, state: FSMContext):
         gender = data.get("gender")
         address = f"{lat}, {lon}"
 
-             
+            
     else:
         address = message.text.strip()
 
