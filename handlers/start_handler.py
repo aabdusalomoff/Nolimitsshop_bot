@@ -114,38 +114,43 @@ async def get_gender(call:CallbackQuery, state:FSMContext):
 
 @start_router.message(Register.address)
 async def get_address(message: Message, state: FSMContext):
-
-    if message.location:
-        lat = message.location.latitude
-        lon = message.location.longitude
-
+    try:
         data = await state.get_data()
+        
+        # Получаем адрес
+        if message.location:
+            lat = message.location.latitude
+            lon = message.location.longitude
+            address = f"GPS: {lat:.6f}, {lon:.6f}"
+        else:
+            address = message.text.strip()
 
-        fullname = data.get("name")
-        phone = data.get("phone")
-        gender = data.get("gender")
-        address = f"{lat}, {lon}"
+        # Сохраняем в базу
+        success = insert_user(
+            fullname=data["name"],
+            phone=data["phone"],
+            gender=data["gender"],
+            address=address,
+            chat_id=message.from_user.id
+        )
 
-            
-    else:
-        address = message.text.strip()
+        if success:
+            # Успешное сообщение
+            success_text = f"""
+🎉 Tabriklaymiz! Ro'yxatdan muvaffaqiyatli o'tdingiz!
 
-    data["address"] = address
-
-    success_text = f"""
-🎉 Tabriklaymiz, siz muvaffaqiyatli ro‘yxatdan o‘tdingiz!
-
-📋 Siz haqingizdagi ma’lumotlar:
+📋 Ma'lumotlaringiz:
 👤 Ism: {data['name']}
-📞 Telefon: {data['phone']}
+📞 Telefon: {data['phone']}  
 ⚧ Jins: {data['gender']}
 📍 Manzil: {address}
-
-Endi siz bizning to‘liq foydalanuvchimizsiz 💪  
-🛍️ Buyurtma berish uchun “Menu” tugmasini bosing!
 """
+            await message.answer(success_text, reply_markup=REGISTER_SUCCESS_BUTTONS)
+        else:
+            await message.answer("❌ Ro'yxatdan o'tishda xatolik! Qaytadan urinib ko'ring.")
 
+        await state.clear()
 
-    await message.answer(success_text, reply_markup=REGISTER_SUCCESS_BUTTONS)
-    await state.clear()
-
+    except Exception as e:
+        print(f"Registration error: {e}")
+        await message.answer("❌ Xatolik yuz berdi! Iltimos, qaytadan urinib ko'ring.")

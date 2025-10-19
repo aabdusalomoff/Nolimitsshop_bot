@@ -40,8 +40,8 @@ LOCATION_BUTTON = ReplyKeyboardMarkup(
 GENDER_BUTTON = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text="👨 Erkak", callback_data="gender_male"),
-            InlineKeyboardButton(text="👩 Ayol", callback_data="gender_female")
+            InlineKeyboardButton(text="👨 Erkak", callback_data="gender_erkak"),
+            InlineKeyboardButton(text="👩 Ayol", callback_data="gender_ayol")
         ]
     ]
 )
