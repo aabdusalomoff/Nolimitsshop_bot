@@ -35,7 +35,7 @@ async def get_gender_menu(call:CallbackQuery,state:FSMContext):
         await call.message.edit_reply_markup(reply_markup=CATEGORY_BUTTONS)
 
 
-@user_router.callback_query(F.data.startwith("category_"))
+@user_router.callback_query(F.data.startswith("category_"))
 async def get_category_menu(call:CallbackQuery,state:FSMContext):
     category = call.data.split("_")[-1]
 
@@ -43,9 +43,21 @@ async def get_category_menu(call:CallbackQuery,state:FSMContext):
         await call.message.answer(caption=GENDER_TEXT, parse_mode="HTML")
         await call.message.edit_reply_markup(reply_markup=GENDER_BUTTONS)
     else:
+
         await state.update_data(category=category)
         await state.set_state(MenuOption.season)
+
         await call.message.edit_caption(text=SEASON_TEXT)
         await call.message.edit_reply_markup(reply_markup=SEASON_BUTTONS)
         
- 
+@user_router.callback_query(F.data.startswith("season_"))
+async def send_product_by_filter(call:CallbackQuery,state:FSMContext):
+    season = call.data.split("_")[-1]
+
+    if season == "back":
+        await call.message.edit_caption(caption=CATEGORY_TEXT)
+        await call.message.edit_reply_markup(reply_markup=CATEGORY_BUTTONS)
+    else:
+
+        await call.message.edit_reply_markup(reply_markup=None)
+        await call.message.answer(f"Siz gender")
