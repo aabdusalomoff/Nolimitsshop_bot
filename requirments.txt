@@ -1,0 +1,10 @@
+aiogram==3.22.0
+aiofiles==24.1.0
+aiohttp==3.12.15
+magic-filter==1.0.12
+
+# Работа с .env и настройками
+environs==14.3.0
+python-dotenv==1.1.1
+marshmallow==4.0.1
+
